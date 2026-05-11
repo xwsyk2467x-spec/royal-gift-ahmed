@@ -3,108 +3,78 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Royal VIP Gift - Ahmed Ghalab</title>
 
-<style>
-body{margin:0;font-family:Arial;color:white;text-align:center;overflow:hidden;background:black}
-video{position:fixed;width:100%;height:100%;object-fit:cover;z-index:-2}
-.overlay{position:fixed;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:-1}
-.container{padding:20px}
-button{padding:12px 20px;background:gold;border:none;border-radius:10px;font-weight:bold}
-input{padding:10px;border-radius:8px;border:none}
-.hidden{display:none}
-.card{background:rgba(0,0,0,.7);padding:15px;margin:10px auto;border:1px solid gold;max-width:400px;border-radius:15px}
-.profile{width:150px;height:150px;border-radius:50%;border:3px solid gold;object-fit:cover;margin-top:10px}
-.crown{font-size:60px;animation:float 2s infinite}
-@keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
-#count{font-size:80px}
-</style>
+<link rel="stylesheet" href="style.css">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#000000">
 </head>
 
 <body>
 
-<video autoplay muted loop>
-<source src="https://cdn.pixabay.com/video/2023/04/18/160643-818493090_large.mp4">
+<video autoplay muted loop id="bgVideo">
+  <source src="https://cdn.pixabay.com/video/2023/04/18/160643-818493090_large.mp4">
 </video>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b5f7.mp3">
+</audio>
+
+<audio id="openSound">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_2f2c1f.mp3">
+</audio>
 
 <div class="overlay"></div>
 
 <div class="container">
 
-<div id="welcome">
-<h1>⚜️ دعوة ملكية ⚜️</h1>
-<p>بوكس خاص بـ أحمد غلاب 👑</p>
-<button onclick="openGate()">ادخل</button>
+<!-- البداية -->
+<div id="welcome" class="screen">
+  <h1>⚜️ دعوة ملكية VIP ⚜️</h1>
+  <p>بوكس خاص بـ أحمد غلاب 👑</p>
+  <button onclick="openGate()">ادخل البوابة الملكية</button>
 </div>
 
-<div id="gate" class="hidden">
-<h2>🔐 كلمة السر</h2>
-<input type="password" id="pass">
-<button onclick="check()">فتح</button>
-<p id="err"></p>
+<!-- كلمة السر -->
+<div id="gate" class="screen hidden">
+  <h2>🔐 بوابة التاج الملكي</h2>
+  <input type="password" id="pass" placeholder="كلمة السر">
+  <button onclick="check()">فتح الهدية</button>
+  <p id="error"></p>
 </div>
 
-<div id="count" class="hidden"><h1 id="num">3</h1></div>
+<!-- العد -->
+<div id="count" class="screen hidden">
+  <h1 id="num">3</h1>
+</div>
 
-<div id="gift" class="hidden">
-<div class="crown">👑</div>
+<!-- الهدية -->
+<div id="gift" class="screen hidden">
 
-<h2>أهلاً بك يا أحمد غلاب</h2>
+  <div id="fireworks"></div>
 
-<img class="profile" src="https://i.imgur.com/8Km9tLL.jpg">
+  <div class="crown">👑</div>
 
-<div class="card">
-<p id="msg"></p>
+  <h1 id="title"></h1>
+
+  <img src="ahmed.jpg" class="profile">
+
+  <div class="card glow">
+    <p id="msg"></p>
+  </div>
+
+  <div class="card gold">
+    <h2>👑 التتويج الملكي 👑</h2>
+    <p>أنت ملك هذا اليوم يا أحمد غلاب 🎂</p>
+  </div>
+
 </div>
 
 </div>
 
-</div>
-
-<script>
-let music=new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b5f7.mp3");
-music.loop=true;
-
-function openGate(){
-document.getElementById("welcome").classList.add("hidden");
-document.getElementById("gate").classList.remove("hidden");
-music.play();
-}
-
-function check(){
-let v=document.getElementById("pass").value;
-if(v==="ahmed"){start()}
-else{document.getElementById("err").innerText="❌ خطأ"}
-}
-
-function start(){
-document.getElementById("gate").classList.add("hidden");
-document.getElementById("count").classList.remove("hidden");
-
-let n=3;
-let el=document.getElementById("num");
-
-let t=setInterval(()=>{
-n--;
-el.innerText=n;
-if(n===0){clearInterval(t);show()}
-},1000);
-}
-
-function show(){
-document.getElementById("count").classList.add("hidden");
-document.getElementById("gift").classList.remove("hidden");
-
-let text="أحمد غلاب… هذا يومك الملكي 👑 أنت قيمة لا تُقارن 🤍 كل عام وانت بخير وسعادة";
-let i=0;
-
-let t=setInterval(()=>{
-document.getElementById("msg").innerHTML+=text[i];
-i++;
-if(i>=text.length)clearInterval(t);
-},60);
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
